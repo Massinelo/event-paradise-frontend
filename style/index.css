@@ -1,0 +1,8 @@
+.tooltip .tooltip-inner {
+    background-color: red;
+}
+
+.tooltip.bs-tooltip-top>.tooltip-arrow::before,
+ .tooltip.bs-tooltip-auto[data-popper-placement^=top]>.tooltip-arrow::before {
+     border-top-color:  red;
+ }
