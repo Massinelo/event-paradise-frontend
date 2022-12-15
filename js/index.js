@@ -7,8 +7,6 @@ const elements = form.elements;
 // méthode pour boucler sur une collection (ca c'est la version java =>  for(String str: strings))
 for (const element of elements) { 
     const type = element.type;
-    const name = element.name;
-    const helpText = document.getElementById(`${name}` + "-helptext")
     
 
     if (type != "submit") {
@@ -16,6 +14,9 @@ for (const element of elements) {
         // Invalid event
         element.addEventListener('invalid',(event) => {
             event.preventDefault();
+
+            const name = element.name;
+            const helpText = document.getElementById(`${name}` + "-helptext")
 
             element.classList.add("is-invalid");
             helpText.classList.add("text-danger");
@@ -46,9 +47,10 @@ for (const element of elements) {
         // Change event
         element.addEventListener("change", (event) => {    
             if (element.checkValidity()) {  
+                const name = element.name;
+                const helpText = document.getElementById(`${name}` + "-helptext")
                 const tooltip = bootstrap.Tooltip.getOrCreateInstance(element);
                 tooltip.dispose();
-                event.preventDefault();
                 element.classList.remove("is-invalid");
                 helpText.classList.remove("text-danger");
                 element.classList.add("is-valid");
@@ -57,23 +59,35 @@ for (const element of elements) {
              } 
         })
 
-        // Submit event 
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            if (type != "submit" && type!= "button") {
-                element.classList.remove("is-valid");
-                helpText.classList.remove("text-success");
-                form.reset();
-            }
         
-        // Toast - Success !
-        const toastElem = document.querySelector('.toast');
-        const toast = bootstrap.Toast.getOrCreateInstance(toastElem);
-        toast.show();
-        })
     }
+   
 }
+
+ // Submit event 
+ form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    for (const element of elements) {
+
+        const type = element.type;
+        const name = element.name;
+        const helpText = document.getElementById(`${name}` + "-helptext")
+
+        if (type != "submit" && type!= "button") {
+            element.classList.remove("is-valid");
+            helpText.classList.remove("text-success");
+            form.reset();
+        }
+
+    }    
+    
+    // Toast - Success !
+    const toastElem = document.querySelector('.toast');
+    const toast = bootstrap.Toast.getOrCreateInstance(toastElem);
+    toast.show();
+
+    })
 
 
 
