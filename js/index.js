@@ -39,8 +39,12 @@ for (const element of elements) {
             tooltip.setContent({ '.tooltip-inner': message });
             
             const firstInvalidElement = document.querySelector(".is-invalid");
+
+            if (element == firstInvalidElement) {
+                firstInvalidElement.focus();
+            }
           
-            firstInvalidElement.focus();
+            
             
         })
 
@@ -81,7 +85,7 @@ for (const element of elements) {
         }
 
     }    
-    
+
     // Toast - Success !
     const toastElem = document.querySelector('.toast');
     const toast = bootstrap.Toast.getOrCreateInstance(toastElem);
